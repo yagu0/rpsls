@@ -6,7 +6,7 @@ The rules are given by Sheldon in episode 8 of season 2 of TBBT (The Big Bang Th
 
 ---
 
-[Online demo](https://auder.net/rpsls/")
+[Online demo](https://auder.net/rpsls/)
 
 Winning should be difficult after a few dozens of rounds, because it's hard to play at random.
 
