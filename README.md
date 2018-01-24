@@ -6,6 +6,8 @@ The rules are given by Sheldon in episode 8 of season 2 of TBBT (The Big Bang Th
 
 ---
 
-Try to win ;-) ...and if it's too easy, check "draw is lost".
+[Online demo](https://auder.net/rpsls/")
 
-But it should not be too easy, because it's hard to play at random.
+Winning should be difficult after a few dozens of rounds, because it's hard to play at random.
+
+Setting "draw is lost" and/or increasing number of inputs can improve bot level.
