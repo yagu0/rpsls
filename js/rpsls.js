@@ -1,30 +1,41 @@
-const nChoice = 3; //fixed for this game
+const nChoice = 5; //fixed for this game
 
-// Rewards matrix. Order: rock, lizard, Spock, scissors, paper
+const symbols = [ "Rock", "Lizard", "Spock", "Scissors", "Paper" ];
+
+// Same order as in symbols
+const messages = [
+	[ "=",             "crushes",        "is vaporized by", "cruches",           "is covered by"   ],
+	[ "is crushed by", "=",              "poisons",         "is decapitated by", "eats"            ],
+	[ "vaporizes",     "is poisoned by", "=",               "smashes",           "is disproved by" ],
+	[ "is crushed by", "decapitates",    "is smashed by",   "=",                 "cuts"            ],
+	[ "covers",        "is eaten by",    "disproves",       "is cut by",         "="               ],
+];
+
+// Rewards matrix, order as in symbols
 const rewards = Array.from(Array(nChoice)).map( (e,i) => { //lines
 	return Array.from(Array(nChoice)).map( (f,j) => { //columns
 		// i against j: gain from i viewpoint
-		if (j == (i+1) % nChoice)// || j == (i+3) % nChoice)
+		if (j == (i+1) % nChoice || j == (i+3) % nChoice)
 			return 1; //I win :)
 		else if (i != j)
 			return -1; //I lose :(
-		else //i == j
-			return 0;
+		return 0; //i==j
 	});
 });
-
-const symbols = [ "Rock", "Lizard", "Spock", "Scissors", "Paper" ];
 
 new Vue({
 	el: "#rpsls",
 	data: {
-		humanMove: -1, //integer in 0...nChoice-1
 		nInput: 5, //default
 		humanHistory: [ ], //your nInput last moves, stored (oldest first)
-		gameState: 0, //total points of the computer
+		humanMove: -1,
+		gameState: 0, //total points of the human
+		compMove: -1, //last move played by computer
 		drawIsLost: false, //normal (or true: draw is considered loss)
 		rewards: [ ], //initialized at first human move with new nInput
 		weights: [ ], //same as above
+		symbols: symbols,
+		messages: messages,
 	},
 	created: function() {
 		this.reinitialize();
@@ -43,8 +54,9 @@ new Vue({
 			if (this.humanHistory.length > this.nInput)
 				this.humanHistory.splice(this.nInput);
 		},
-		// Play a move given current data (*after* human move: trigger onChange)
-		play: function() {
+		// Play a move given current data (*after* human move)
+		play: function(humanMove) {
+			this.humanMove = humanMove;
 			let candidates = [ ];
 			Array.from(Array(nChoice)).forEach( (e,i) => {
 				// Sum all weights from an activated input to this output
@@ -53,36 +65,35 @@ new Vue({
 						return 0;
 					return input[ this.humanHistory[j] ];
 				}, 0 );
-				let currentValue = {
+				let move = {
 					val: sumWeights,
-					index: i
+					index: i,
 				};
 				if (candidates.length == 0 || sumWeights > candidates[0].val)
-					candidates = [ currentValue ];
+					candidates = [move];
 				else if (sumWeights == candidates[0].val)
-					candidates.push(currentValue);
+					candidates.push(move);
 			});
 			// Pick a choice at random in maxValue (total random for first move)
-			let randIdx = Math.floor((Math.random() * candidates.length) + 1);
-			this.updateGameState(candidates[randIdx].index);
+			let randIdx = Math.floor(Math.random() * candidates.length);
+			this.compMove = candidates[randIdx].index;
+			// Update game state
+			let reward = rewards[this.compMove][humanMove]; //viewpoint of computer
+			this.gameState -= reward;
+			this.updateWeights(reward);
+			// Update human moves history
+			this.humanHistory.push(humanMove);
+			if (this.humanHistory.length > this.nInput)
+				this.humanHistory.shift();
 		},
-		updateGameState: function(index) {
-			let reward = rewards[index][this.humanMove]; //viewpoint of computer
-			this.gameState += reward;
-			this.updateWeights(reward, index);
-		},
-		updateWeights: function(reward, index) {
+		updateWeights: function(reward) {
 			let delta = Math.sign(reward);
 			if (this.drawIsLost && reward == 0)
 				delta = -1;
-			this.weights[index].forEach( (input,i) => {
+			this.weights[this.compMove].forEach( (input,i) => {
 				if (i < this.humanHistory.length)
 					input[ this.humanHistory[i] ] += delta;
 			});
-			this.postUpdate();
-		},
-		// Finalize weights update
-		postUpdate: function() {
 			// Re-center the weights
 			let sumAllWeights = this.weights.reduce( (a,output) => {
 				return a + output.reduce( (b,input) => {
@@ -98,10 +109,9 @@ new Vue({
 						input[i] -= meanWeight;
 				});
 			});
-			// Update human moves history
-			this.humanHistory.push(this.humanMove);
-			if (this.humanHistory.length > this.nInput)
-				this.humanHistory.shift();
+		},
+		imgSource: function(symbol) {
+			return "img/" + symbol + ".png";
 		},
   },
 });

@@ -1,0 +1,49 @@
+#rpsls {
+	margin-top: 50px;
+	margin-bottom: 50px;
+}
+
+.topSpacing {
+	margin-top: 40px;
+}
+
+.leftSpacing {
+	padding-left: 40px;
+}
+
+.compChoice {
+	border: 3px solid red;
+}
+
+.humanChoice {
+	border: 3px solid green;
+}
+
+.compChoice.humanChoice {
+	border: 3px solid black;
+}
+
+.image {
+	width: 20%;
+	cursor: pointer;
+}
+
+.message {
+	width: 100%;
+	font-weight: bold;
+	font-size: 1.2rem;
+}
+
+.scoreMsg {
+	font-size: 1.5rem;
+}
+
+.score {
+	font-weight: bold;
+}
+
+footer {
+	position: absolute;
+	bottom: 0;
+	width: 100%;
+}

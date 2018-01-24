@@ -1,15 +1,44 @@
-<!-- TODO: click : on image (show computer move on same image) + show network-matrix on the right (top-bottom, 5 per row) -->
+<!doctype html>
+<html lang="en">
 
-<div id="rpsls">
-	<input id="drawIsLost" type="checkbox" v-model="drawIsLost">
-	<label for="drawIsLost"> Draw count as loss ?</label>
-	<input id="nInput" type="number" v-model="nInput" @change="reinitialize()">
-	<label for="nInput">Number of inputs</label>
-	<input id="humanMove" type="number" v-model="humanMove" @change="play()">
-	<label for="humanMove">Move ?</label>
-	<input id="gameState" type="number" v-model="gameState" disabled>
-	<label for="gameState">Score of computer</label>
-</div>
+	<head>
+		<meta charset="utf-8">
+		<title>Rock Paper Scissors Lizard Spock</title>
+		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/css/materialize.min.css">
+		<link rel="stylesheet" href="css/rpsls.css">
+	</head>
 
+	<body>
+		<div class="container" id="rpsls">
+			<div class="row">
+				<div class="col s12">
+					<form class="center">
+						<div class="input-field inline">
+							<input id="nInput" type="number" v-model="nInput" @change="reinitialize()">
+							<label for="nInput">Number of inputs</label>
+						</div>
+						<span class="leftSpacing">
+							<input id="drawIsLost" type="checkbox" v-model="drawIsLost">
+							<label for="drawIsLost"> Draw count as loss ?</label>
+						</span>
+					</form>
+				</div>
+			</div>
+			<div class="row topSpacing">
+				<img v-for="(symb,i) in symbols" class="image" :class="{compChoice:compMove==i,humanChoice:humanMove==i}" :src="imgSource(symb)" @click="play(i)">
+				<p class="blue-text center message topSpacing" v-if="humanMove>=0 && compMove>=0">{{ symbols[humanMove] + " " + messages[humanMove][compMove] + " " + symbols[compMove] }}</p>
+				<p class="center scoreMsg topSpacing">
+					<span>Score: </span>
+					<span class="score">{{ gameState }}</span>
+				</p>
+			</div>
+		</div>
+		<footer class="center grey-text">
+			<p>Images were found on the web; if they should be removed, let me know: yagu0 on github</p>
+		</footer>
+	</body>
+
+<script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/js/materialize.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.5.13/vue.js"></script>
-<script src="./rpsls.js"></script>
+<script src="js/rpsls.js"></script>
