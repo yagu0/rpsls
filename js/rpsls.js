@@ -113,5 +113,5 @@ new Vue({
 		imgSource: function(symbol) {
 			return "img/" + symbol + ".png";
 		},
-  },
+	},
 });
