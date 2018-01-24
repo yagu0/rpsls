@@ -14,7 +14,7 @@
 				<div class="col s12">
 					<form class="center">
 						<div class="input-field inline">
-							<input id="nInput" type="number" v-model="nInput" @change="reinitialize()">
+							<input id="nInput" type="number" v-model.number="nInput" @change="reinitialize()">
 							<label for="nInput">Number of inputs</label>
 						</div>
 						<span class="leftSpacing">
