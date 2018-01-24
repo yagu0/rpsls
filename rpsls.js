@@ -1,8 +1,8 @@
-const nChoice = 5,; //fixed for this game
+const nChoice = 5; //fixed for this game
 
 // Rewards matrix. Order: rock, lizard, Spock, scissors, paper
-const rewards = Array.from(Array(nChoice)).map( i => { //lines
-	return Array.from(Array(nChoice)).map( j => { //columns
+const rewards = Array.from(Array(nChoice)).map( (e,i) => { //lines
+	return Array.from(Array(nChoice)).map( (f,j) => { //columns
 		// i against j: gain from i viewpoint
 		if (j == (i+1) % nChoice || j == (i+3) % nChoice)
 			return 1; //I win :)
@@ -26,6 +26,9 @@ new Vue({
 		rewards: [ ], //initialized at first human move with new nInput
 		weights: [ ], //same as above
 	},
+	created: function() {
+		this.reinitialize();
+	},
 	methods: {
 		// Called on nInput change
 		reinitialize: function() {
@@ -43,7 +46,7 @@ new Vue({
 		// Play a move given current data (*after* human move: trigger onChange)
 		play: function() {
 			let candidates = [ ];
-			Array.from(Array(nChoice)).forEach( i => {
+			Array.from(Array(nChoice)).forEach( (e,i) => {
 				// Sum all weights from an activated input to this output
 				let sumWeights = this.weights[i].reduce( (acc,input,j) => {
 					if (this.humanHistory.length <= j)
@@ -96,8 +99,8 @@ new Vue({
 				});
 			});
 			// Update human moves history
-			this.humanHistory.push(coup_adversaire);
+			this.humanHistory.push(this.humanMove);
 			this.humanHistory.shift();
 		},
   },
-};
+});
