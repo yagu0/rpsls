@@ -1,0 +1,15 @@
+<!-- TODO: click : on image (show computer move on same image) + show network-matrix on the right (top-bottom, 5 per row) -->
+
+<div id="rpsls">
+	<input id="drawIsLost" type="checkbox" v-model="drawIsLost">
+	<label for="drawIsLost"> Draw count as loss ?</label>
+	<input id="nInput" type="number" v-model="nInput" @change="reinitialize()">
+	<label for="nInput">Number of inputs</label>
+	<input id="humanMove" type="number" v-model="humanMove" @change="play()">
+	<label for="humanMove">Move ?</label>
+	<input id="gameState" type="number" v-model="gameState" disabled>
+	<label for="gameState">Score of computer</label>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.5.13/vue.js">
+<script src="rpsls.js">
