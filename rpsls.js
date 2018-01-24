@@ -1,14 +1,14 @@
-const nChoice = 5; //fixed for this game
+const nChoice = 3; //fixed for this game
 
 // Rewards matrix. Order: rock, lizard, Spock, scissors, paper
 const rewards = Array.from(Array(nChoice)).map( (e,i) => { //lines
 	return Array.from(Array(nChoice)).map( (f,j) => { //columns
 		// i against j: gain from i viewpoint
-		if (j == (i+1) % nChoice || j == (i+3) % nChoice)
+		if (j == (i+1) % nChoice)// || j == (i+3) % nChoice)
 			return 1; //I win :)
-		else if ((i+1) % nChoice == j || j == (i+2) % nChoice)
+		else if (i != j)
 			return -1; //I lose :(
-		else
+		else //i == j
 			return 0;
 	});
 });
@@ -64,12 +64,12 @@ new Vue({
 			});
 			// Pick a choice at random in maxValue (total random for first move)
 			let randIdx = Math.floor((Math.random() * candidates.length) + 1);
-			this.updateGameState(candidates[randIdx]);
+			this.updateGameState(candidates[randIdx].index);
 		},
-		updateGameState: function(move) {
-			let reward = rewards[move.val][this.humanMove]; //viewpoint of computer
+		updateGameState: function(index) {
+			let reward = rewards[index][this.humanMove]; //viewpoint of computer
 			this.gameState += reward;
-			this.updateWeights(reward, move.index);
+			this.updateWeights(reward, index);
 		},
 		updateWeights: function(reward, index) {
 			let delta = Math.sign(reward);
@@ -100,7 +100,8 @@ new Vue({
 			});
 			// Update human moves history
 			this.humanHistory.push(this.humanMove);
-			this.humanHistory.shift();
+			if (this.humanHistory.length > this.nInput)
+				this.humanHistory.shift();
 		},
   },
 });
