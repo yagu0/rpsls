@@ -15,11 +15,11 @@
 					<form class="center">
 						<div class="input-field inline">
 							<input id="nInput" type="number" v-model.number="nInput" @change="reinitialize()">
-							<label for="nInput">Number of inputs</label>
+							<label for="nInput">Memory</label>
 						</div>
 						<span class="leftSpacing">
 							<input id="drawIsLost" type="checkbox" v-model="drawIsLost">
-							<label for="drawIsLost"> Draw count as loss ?</label>
+							<label for="drawIsLost" title="If activated, the bot consider a draw as a lost game, and therefore tries to win even harder">Winner bot</label>
 						</span>
 					</form>
 				</div>
