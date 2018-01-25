@@ -1,0 +1,34 @@
+digraph G {
+	rankdir=LR;
+
+	subgraph inputs {
+		input1
+		input2
+		label = "Memory";
+	}
+
+	subgraph outputs {
+		Rock
+		Paper
+		Scissors
+	}
+
+	input1 -> Rock [label="Paper"]
+	input1 -> Rock [label="Rock"]
+	input1 -> Rock [label="Scissors"]
+	input1 -> Paper [label="Rock"]
+	input1 -> Paper [label="Paper"]
+	input1 -> Paper [label="Scissors"]
+	input1 -> Scissors [label="Rock"]
+	input1 -> Scissors [label="Paper"]
+	input1 -> Scissors [label="Scissors"]
+	input2 -> Rock [label="Paper"]
+	input2 -> Rock [label="Rock"]
+	input2 -> Rock [label="Scissors"]
+	input2 -> Paper [label="Rock"]
+	input2 -> Paper [label="Paper"]
+	input2 -> Paper [label="Scissors"]
+	input2 -> Scissors [label="Rock"]
+	input2 -> Scissors [label="Paper"]
+	input2 -> Scissors [label="Scissors"]
+}
