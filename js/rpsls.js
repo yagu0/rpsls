@@ -4,11 +4,11 @@ const symbols = [ "Rock", "Lizard", "Spock", "Scissors", "Paper" ];
 
 // Same order as in symbols
 const messages = [
-	[ "=",             "crushes",        "is vaporized by", "cruches",           "is covered by"   ],
-	[ "is crushed by", "=",              "poisons",         "is decapitated by", "eats"            ],
-	[ "vaporizes",     "is poisoned by", "=",               "smashes",           "is disproved by" ],
-	[ "is crushed by", "decapitates",    "is smashed by",   "=",                 "cuts"            ],
-	[ "covers",        "is eaten by",    "disproves",       "is cut by",         "="               ],
+	[ "can't win vs.", "crushes",        "is vaporized by", "cruches",           "is covered by"   ],
+	[ "is crushed by", "can't win vs.",  "poisons",         "is decapitated by", "eats"            ],
+	[ "vaporizes",     "is poisoned by", "can't win vs.",   "smashes",           "is disproved by" ],
+	[ "is crushed by", "decapitates",    "is smashed by",   "can't win vs.",     "cuts"            ],
+	[ "covers",        "is eaten by",    "disproves",       "is cut by",         "can't win vs."   ],
 ];
 
 // Rewards matrix, order as in symbols
