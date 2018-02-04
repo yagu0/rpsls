@@ -13,13 +13,13 @@
 			<div class="row">
 				<div class="col s12">
 					<form class="center">
-						<div class="input-field inline">
+						<div class="input-field inline" title="The number of human moves remembered by the program. Higher means better performances, generally">
 							<input id="nInput" type="number" v-model.number="nInput" @change="reinitialize()">
 							<label for="nInput">Memory</label>
 						</div>
-						<span class="leftSpacing">
+						<span class="leftSpacing" title="If activated, the bot consider a draw as a lost game, and therefore tries to win even harder">
 							<input id="drawIsLost" type="checkbox" v-model="drawIsLost">
-							<label for="drawIsLost" title="If activated, the bot consider a draw as a lost game, and therefore tries to win even harder">Winner bot</label>
+							<label for="drawIsLost">Winner bot</label>
 						</span>
 					</form>
 				</div>
