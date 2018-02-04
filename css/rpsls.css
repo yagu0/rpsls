@@ -1,10 +1,12 @@
 #rpsls {
 	margin-top: 50px;
 	margin-bottom: 50px;
+	min-height: calc(100vh - 100px);
 }
 
 .topSpacing {
 	margin-top: 40px;
+	margin-bottom: 10px;
 }
 
 .leftSpacing {
@@ -42,8 +44,16 @@
 	font-weight: bold;
 }
 
+#explanations {
+	background-color: lightgrey;
+}
+
+.block {
+	display: block;
+	margin: 10px auto;
+}
+
 footer {
-	position: absolute;
-	bottom: 0;
+	height: 50px;
 	width: 100%;
 }
